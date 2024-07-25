@@ -5,6 +5,7 @@ from database import engine, get_db
 from models import Base, Book as BookModel, Review as ReviewModel
 from schemas import BookCreate, Book, ReviewCreate, Review
 from util import generate_random_id
+import logging
 
 app = FastAPI()
 
@@ -78,13 +79,3 @@ def get_book_summary(id: int, db: Session = Depends(get_db)):
     rating_count = len(reviews)
     avg_rating = rating_sum / rating_count if rating_count > 0 else None
     return {"summary": book.summary, "average_rating": avg_rating}
-
-@app.get("/recommendations")
-def get_recommendations():
-    # This endpoint is left as a placeholder for actual recommendation logic
-    return {"message": "This will return book recommendations based on user preferences."}
-
-@app.post("/generate-summary")
-def generate_summary(book_content: str):
-    # This endpoint is left as a placeholder for actual summary generation logic
-    return {"summary": "This will return a generated summary for the given book content."}
